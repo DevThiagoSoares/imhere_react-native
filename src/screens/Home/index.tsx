@@ -1,17 +1,33 @@
-import { Text, View, TextInput, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ScrollView, FlatList, Alert } from 'react-native';
 import { styles } from './styles';
 
 import { Participant } from '../../components/Participant';
+import { text } from 'node:stream/consumers';
 
 export function Home() {
-
+    const participants = ['Thiago', 'Thobias', 'Mathias', 'Mikaela', 'Tereza', 'Maria', 'Elo', 'julia', 'Macos', 'Joao', 'Biro', 'Bella']
+    
     function handleParticipantAdd() {
+        if (participants.includes("Thiago")) {
+            return Alert.alert("Participante ja cadastrado", "Já existe um participante com esse noma na lista.");
+        }
+        participants.push("Ana")
         console.log("Você clicou")
     }
     function handleParticipantRemove(name: string) {
+        // Tratamento de Alerta de confirmação. ( titulo, mensagem, butoes ficam dentro de uma array de objeto)
+        Alert.alert("Remover", `Remover o particpante ${name}?`,[
+            {
+                text: "Sim",
+                onPress: () => Alert.alert("Deletado!")
+            },
+            {
+                text: "Não",
+                style: "cancel"
+            }
+        ])
         console.log(`remove ${name}`)
     }
-    const participants = ['Thiago', 'Thobias', 'Mathias', 'Mikaela', 'Tereza', 'Maria', 'Elo', 'julia', 'Macos', 'Joao', 'Biro', 'Bella']
 
     return (
         <View style={styles.container}>
@@ -45,7 +61,7 @@ export function Home() {
                     <Participant
                             key={item}
                             name={item}
-                            onRemove={() => handleParticipantRemove("Thiago")} />
+                            onRemove={() => handleParticipantRemove(item)} />
                 )}
                 //para sumir barra de scroll
                 showsVerticalScrollIndicator={false}
