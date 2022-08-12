@@ -14,22 +14,24 @@ export function Home() {
         }
         setParticipants(prevState => [...prevState, participantName]);
         setParticipantName('');
-        console.log("Você clicou");
     }
 
     function handleParticipantRemove(name: string) {
+        // lógica de exluir participante
+        // return console.log(participants.filter(participant => participant !== name));
+
         // Tratamento de Alerta de confirmação. ( titulo, mensagem, butoes ficam dentro de uma array de objeto)
         Alert.alert("Remover", `Remover o particpante ${name}?`,[
             {
                 text: "Sim",
-                onPress: () => Alert.alert("Deletado!")
+                //logica de escluir adicionada ao clica no botao;
+                onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name))
             },
             {
                 text: "Não",
                 style: "cancel"
             }
         ])
-        console.log(`remove ${name}`)
     }
 
     return (
